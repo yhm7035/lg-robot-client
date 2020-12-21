@@ -1,0 +1,27 @@
+{
+  "extends": [
+    "standard",
+    "eslint:recommended"
+  ],
+  "plugins": [
+    "standard",
+    "promise"
+  ],
+  "rules": {
+    "semi": "off",
+    "no-unused-vars": "off",
+    "indent": ["error", 2],
+    "comma-dangle": ["error", "only-multiline"]
+  },
+  "env": {
+    "node": true,
+    "browser": true,
+    "es2020": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  }
+}
