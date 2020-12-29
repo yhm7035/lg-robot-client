@@ -70,7 +70,11 @@ class Cell extends React.Component {
                   </div>
                 )
               } else {
-                return <div className='table-cell-text-area' key={index} style={{ width: form.width, order: index, cursor: 'pointer' }}><div className="table-cell-text" style={{ width: form.width, color: '#333333' }}>{this.props[form.type]}</div></div>
+                return <div className='table-cell-text-area' key={index} style={{ width: form.width, order: index }}>
+                  <div className="table-cell-text" style={{ width: form.width, color: '#333333' }}>
+                    {this.props[form.type]}
+                  </div>
+                </div>
               }
             })}
 
