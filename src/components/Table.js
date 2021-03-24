@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 import { workerHeaders, kubernetesHeaders, dockerHeaders } from '../static/form'
 import Question from './image/Question'
@@ -17,21 +18,25 @@ class Table extends React.Component {
 
   getList () {
     if (this.props.type === 'imageList') {
-      fetch('/registry/imageList')
-        .then(response => response.json())
-        .then(data => this.setState({ list: data.repositories }))
+      axios.get('/registry/imageList')
+        .then(res => {
+          this.setState({ list: res.data.repositories })
+        })
     } else if (this.props.type === 'workerList') {
-      fetch('/workers/list')
-        .then(response => response.json())
-        .then(data => this.setState({ list: data.list }))
+      axios.get('/workers/list')
+        .then(res => {
+          this.setState({ list: res.data.list })
+        })
     } else if (this.props.type === 'containerList' && this.props.platform === 'kubernetes') {
-      fetch(`/container/cluster/list?address=${this.props.address}&name=${this.props.name}`)
-        .then(response => response.json())
-        .then(data => this.setState({ list: data.list }))
+      axios.get(`/container/cluster/list?address=${this.props.address}&name=${this.props.name}`)
+        .then(res => {
+          this.setState({ list: res.data.list })
+        })
     } else if (this.props.type === 'containerList' && this.props.platform === 'docker') {
-      fetch(`/container/machine/list?address=${this.props.address}&name=${this.props.name}`)
-        .then(response => response.json())
-        .then(data => this.setState({ list: data.list }))
+      axios.get(`/container/machine/list?address=${this.props.address}&name=${this.props.name}`)
+        .then(res => {
+          this.setState({ list: res.data.list })
+        })
     }
   }
 

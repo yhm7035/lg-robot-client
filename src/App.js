@@ -1,22 +1,29 @@
 import React, { Component } from 'react'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import Main from './component/Main'
-import KubernetesMain from './component/worker/kubernetes/KubernetesMain'
-import DockerMain from './component/worker/docker/DockerMain'
+import Main from './components/Main'
+import KubernetesMain from './components/worker/kubernetes/KubernetesMain'
+import DockerMain from './components/worker/docker/DockerMain'
+import Login from './components/Login'
+import AuthProvider from './contexts/AuthProvider'
+import PrivateRoute from './components/PrivateRoute'
+import { withCookies } from 'react-cookie'
 
 class App extends Component {
   render () {
     return (
-      <BrowserRouter>
-        <div>
-          <Route path="/" component={Main} exact/>
-          <Route path="/kubernetes" component={KubernetesMain}/>
-          <Route path="/docker" component={DockerMain}/>
-        </div>
-      </BrowserRouter>
+      <Router>
+        <AuthProvider>
+          <Switch>
+            <Route path="/login" component={Login} exact/>
+            <PrivateRoute path="/" component={Main} cookies={this.props.cookies} exact/>
+            <PrivateRoute path="/kubernetes" component={KubernetesMain} cookies={this.props.cookies}/>
+            <PrivateRoute path="/docker" component={DockerMain} cookies={this.props.cookies}/>
+          </Switch>
+        </AuthProvider>
+      </Router>
     )
   }
 }
 
-export default App
+export default withCookies(App)

@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 class DeployTemplate extends React.Component {
   constructor (props) {
@@ -24,34 +25,22 @@ class DeployTemplate extends React.Component {
 
   sendDeployRequest = (image, port) => {
     if (this.props.platform === 'kubernetes') {
-      fetch('/run/cluster/deploy', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          address: this.props.address,
-          imageName: image,
-          port,
-          clusterName: this.props.name
-        }),
+      axios.post('/run/cluster/deploy', {
+        address: this.props.address,
+        imageName: image,
+        port,
+        clusterName: this.props.name
+      }).then(res => {
+        alert(res.data.message)
       })
-        .then(response => response.json())
-        .then(data => alert(data.message))
     } else if (this.props.platform === 'docker') {
-      fetch('/run/machine/deploy', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          address: this.props.address,
-          imageName: image,
-          clusterName: this.props.name
-        }),
+      axios.post('/run/machine/deploy', {
+        address: this.props.address,
+        imageName: image,
+        clusterName: this.props.name
+      }).then(res => {
+        alert(res.data.message)
       })
-        .then(response => response.json())
-        .then(data => alert(data.message))
     }
   }
 
