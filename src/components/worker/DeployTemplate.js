@@ -9,6 +9,11 @@ class DeployTemplate extends React.Component {
       image: '',
       port: ''
     }
+
+    this.handleImageChange = this.handleImageChange.bind(this)
+    this.handlePortChange = this.handlePortChange.bind(this)
+    this.sendDeployRequest = this.sendDeployRequest.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleImageChange = (event) => {
@@ -24,11 +29,29 @@ class DeployTemplate extends React.Component {
   }
 
   sendDeployRequest = (image, port) => {
+    const cookies = this.props.cookies
+    const email = cookies.get('email')
+    const ports = port.split(',')
+
+    const intPorts = []
+
     if (this.props.platform === 'kubernetes') {
+      for (let i = 0; i < ports.length; i++) {
+        const num = parseInt(ports[i])
+
+        if (isNaN(num)) {
+          alert('port has to be a number')
+          return
+        }
+
+        intPorts.push(num)
+      }
+
       axios.post('/run/cluster/deploy', {
         address: this.props.address,
+        email,
         imageName: image,
-        port,
+        ports: intPorts,
         clusterName: this.props.name
       }).then(res => {
         alert(res.data.message)
@@ -36,6 +59,7 @@ class DeployTemplate extends React.Component {
     } else if (this.props.platform === 'docker') {
       axios.post('/run/machine/deploy', {
         address: this.props.address,
+        email,
         imageName: image,
         clusterName: this.props.name
       }).then(res => {

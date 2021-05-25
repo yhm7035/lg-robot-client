@@ -12,9 +12,13 @@ class DeleteButton extends React.Component {
   handleDeleteButton () {
     const answer = confirm(`Are you sure you want to delete container(${this.props.containerId})?`)
 
+    const cookies = this.props.cookies
+    const email = cookies.get('email')
+
     if (answer) {
       if (this.props.platform === 'kubernetes') {
         axios.post('/run/cluster/undeploy', {
+          email,
           address: this.props.address,
           containerId: this.props.containerId,
           clusterName: this.props.name
@@ -23,6 +27,7 @@ class DeleteButton extends React.Component {
         })
       } else if (this.props.platform === 'docker') {
         axios.post('/run/machine/undeploy', {
+          email,
           address: this.props.address,
           containerId: this.props.containerId,
           clusterName: this.props.name

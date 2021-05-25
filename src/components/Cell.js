@@ -41,7 +41,7 @@ class Cell extends React.Component {
               if (form.type === 'delete') {
                 return (
                   <div className='table-cell-text-area' key={index} style={{ width: form.width, order: index }}>
-                    <DeleteButton address={this.props.address} platform={this.props.platform} name={this.props.name} containerId={this.props.containerId} />
+                    <DeleteButton address={this.props.address} platform={this.props.platform} name={this.props.name} containerId={this.props.containerId} cookies={this.props.cookies} />
                   </div>
                 )
               } else if (form.type === 'status') {
@@ -83,7 +83,7 @@ class Cell extends React.Component {
               if (form.type === 'delete') {
                 return (
                   <div className='table-cell-text-area' key={index} style={{ width: form.width, order: index }}>
-                    <DeleteButton address={this.props.address} platform={this.props.platform} name={this.props.name} containerId={this.props.containerId} />
+                    <DeleteButton address={this.props.address} platform={this.props.platform} name={this.props.name} containerId={this.props.containerId} cookies={this.props.cookies} />
                   </div>
                 )
               } else if (form.type === 'status') {

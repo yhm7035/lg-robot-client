@@ -3,6 +3,7 @@ import queryString from 'query-string'
 import React from 'react'
 import Logo from '../../Logo'
 import Table from '../../Table'
+import ImageTable from '../../ImageTable'
 import AddressTitle from '../AddressTitle'
 import DeployTemplate from '../DeployTemplate'
 
@@ -39,10 +40,10 @@ class DockerMain extends React.Component {
         <div className='main-background'>
           <div className='title'>Container-Native Clusters for Robot Intelligence</div>
           <Logo />
-          <Table type='imageList' width='260' left='1120px' top='104px' />
+          <ImageTable width='260' left='1120px' top='104px' />
           <AddressTitle address={address} platform={platform}/>
-          <DeployTemplate address={address} name={name} platform={platform}/>
-          <Table type='containerList' address={address} name={name} platform={platform} width='1040' left='60px' top='288px'/>
+          <DeployTemplate address={address} name={name} platform={platform} cookies={this.props.cookies}/>
+          <Table type='containerList' address={address} name={name} platform={platform} cookies={this.props.cookies} width='1040' left='60px' top='288px'/>
         </div>
       )
     } else {
