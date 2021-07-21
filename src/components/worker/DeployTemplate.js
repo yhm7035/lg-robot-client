@@ -16,19 +16,19 @@ class DeployTemplate extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleImageChange = (event) => {
+  handleImageChange (event) {
     this.setState({
       image: event.target.value
     })
   }
 
-  handlePortChange = (event) => {
+  handlePortChange (event) {
     this.setState({
       port: event.target.value
     })
   }
 
-  sendDeployRequest = (image, port) => {
+  sendDeployRequest (image, port) {
     const cookies = this.props.cookies
     const email = cookies.get('email')
     const ports = port.split(',')
@@ -68,7 +68,7 @@ class DeployTemplate extends React.Component {
     }
   }
 
-  handleSubmit = (event) => {
+  handleSubmit (event) {
     const image = this.state.image
     const port = this.state.port
     this.sendDeployRequest(image, port)

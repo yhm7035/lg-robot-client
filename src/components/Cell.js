@@ -2,6 +2,7 @@ import React from 'react'
 
 import { workerHeaders, kubernetesHeaders, dockerHeaders } from '../static/form'
 import NameCell from './NameCell'
+import ImageCell from './ImageCell'
 import DeleteButton from './worker/DeleteButton'
 
 class Cell extends React.Component {
@@ -14,9 +15,9 @@ class Cell extends React.Component {
 
     return (
       <>
-        <div className="table-cell" style={{ top: `${cellTop}px`, width }}>
+        <div className='table-cell' style={{ top: `${cellTop}px`, width }}>
           { this.props.type === 'imageList' &&
-            <div className='table-cell-text-area' style={{ width }}><div className="table-cell-text" style={{ width, color: '#FFFFFF' }}>{this.props.name}</div></div>}
+            <ImageCell width={width} name={this.props.name}/>}
 
           { this.props.type === 'workerList' &&
             workerHeaders.map((form, index) => {
