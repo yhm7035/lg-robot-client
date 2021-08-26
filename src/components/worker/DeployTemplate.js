@@ -34,13 +34,14 @@ class DeployTemplate extends React.Component {
     const ports = port.split(',')
 
     const intPorts = []
+    let isHost = false
 
     if (this.props.platform === 'kubernetes') {
       for (let i = 0; i < ports.length; i++) {
         const num = parseInt(ports[i])
 
         if (isNaN(num)) {
-          alert('port has to be a number')
+          alert('port has to be numbers')
           return
         }
 
@@ -57,10 +58,27 @@ class DeployTemplate extends React.Component {
         alert(res.data.message)
       })
     } else if (this.props.platform === 'docker') {
+      if (port === 'host') {
+        isHost = true
+      } else {
+        for (let i = 0; i < ports.length; i++) {
+          const num = parseInt(ports[i])
+
+          if (isNaN(num)) {
+            alert("port has to be numbers or 'host'")
+            return
+          }
+
+          intPorts.push(num)
+        }
+      }
+
       axios.post('/run/machine/deploy', {
         address: this.props.address,
         email,
         imageName: image,
+        isHost,
+        ports: intPorts,
         clusterName: this.props.name
       }).then(res => {
         alert(res.data.message)
@@ -94,36 +112,24 @@ class DeployTemplate extends React.Component {
           </div>
 
           {/* deploy template */}
-          { this.props.platform === 'kubernetes'
-            ? <>
-              <div style={{ position: 'absolute', width: '563px', height: '40px', left: '152px', top: '0px', order: 1 }}>
-                <div style={{ position: 'absolute', height: '24px', left: '0px', top: '9px', fontFamily: 'Roboto', fontStyle: 'normal', fontWeight: 'normal', fontSize: '16px', lineHeight: '24px', color: '#333333' }}>
-                    Image
-                </div>
-                <input style={{ width: '507px', fontFamily: 'Roboto', fontStyle: 'normal', fontWeight: 'normal', fontSize: '16px', lineHeight: '24px', position: 'absolute', height: '40px', left: '53px', top: '0px', border: '1px solid #DEDEE7', boxSizing: 'border-box', borderRadius: '8px' }}
-                  value={this.state.image}
-                  onChange={this.handleImageChange}
-                />
-              </div>
-              <div style={{ position: 'absolute', width: '137px', height: '40px', left: '722px', top: '0px', order: 2 }}>
-                <div style={{ position: 'absolute', height: '24px', left: '0px', top: '9px', fontFamily: 'Roboto', fontStyle: 'normal', fontWeight: 'normal', fontSize: '16px', lineHeight: '24px', color: '#333333' }}>
-                    Port
-                </div>
-                <input style={{ width: '91px', fontFamily: 'Roboto', fontStyle: 'normal', fontWeight: 'normal', fontSize: '16px', lineHeight: '24px', position: 'absolute', height: '40px', left: '40px', top: '0px', border: '1px solid #DEDEE7', boxSizing: 'border-box', borderRadius: '8px' }}
-                  value={this.state.port}
-                  onChange={this.handlePortChange}
-                />
-              </div>
-            </>
-            : <div style={{ position: 'absolute', width: '700px', height: '40px', left: '152px', top: '0px', order: 1 }}>
-              <div style={{ position: 'absolute', height: '24px', left: '0px', top: '8px', fontFamily: 'Roboto', fontStyle: 'normal', fontWeight: 'normal', fontSize: '16px', lineHeight: '24px', color: '#333333' }}>
+          <div style={{ position: 'absolute', width: '563px', height: '40px', left: '152px', top: '0px', order: 1 }}>
+            <div style={{ position: 'absolute', height: '24px', left: '0px', top: '9px', fontFamily: 'Roboto', fontStyle: 'normal', fontWeight: 'normal', fontSize: '16px', lineHeight: '24px', color: '#333333' }}>
                 Image
-              </div>
-              <input style={{ width: '648px', fontFamily: 'Roboto', fontStyle: 'normal', fontWeight: 'normal', fontSize: '16px', lineHeight: '24px', position: 'absolute', height: '40px', left: '53px', top: '0px', border: '1px solid #DEDEE7', boxSizing: 'border-box', borderRadius: '8px' }}
-                value={this.state.image}
-                onChange={this.handleImageChange}
-              />
-            </div>}
+            </div>
+            <input style={{ width: '507px', fontFamily: 'Roboto', fontStyle: 'normal', fontWeight: 'normal', fontSize: '16px', lineHeight: '24px', position: 'absolute', height: '40px', left: '53px', top: '0px', border: '1px solid #DEDEE7', boxSizing: 'border-box', borderRadius: '8px' }}
+              value={this.state.image}
+              onChange={this.handleImageChange}
+            />
+          </div>
+          <div style={{ position: 'absolute', width: '137px', height: '40px', left: '722px', top: '0px', order: 2 }}>
+            <div style={{ position: 'absolute', height: '24px', left: '0px', top: '9px', fontFamily: 'Roboto', fontStyle: 'normal', fontWeight: 'normal', fontSize: '16px', lineHeight: '24px', color: '#333333' }}>
+                Port
+            </div>
+            <input style={{ width: '91px', fontFamily: 'Roboto', fontStyle: 'normal', fontWeight: 'normal', fontSize: '16px', lineHeight: '24px', position: 'absolute', height: '40px', left: '40px', top: '0px', border: '1px solid #DEDEE7', boxSizing: 'border-box', borderRadius: '8px' }}
+              value={this.state.port}
+              onChange={this.handlePortChange}
+            />
+          </div>
 
           {/* deploy button */}
           <div className='deploy-button' style={{ order: this.props.platform === 'kubernetes' ? 3 : 2 }} onClick={this.handleSubmit}>
