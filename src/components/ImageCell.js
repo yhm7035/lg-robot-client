@@ -17,7 +17,7 @@ class ImageCell extends React.Component {
       .then(res => {
         this.setState({ [imageName]: res.data.tags })
       }).catch(_ => {
-        alert('error: fail to get tags of image')
+        alert('Error: Fail to get tags of image.')
       })
   }
 

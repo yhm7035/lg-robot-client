@@ -6,7 +6,7 @@ class AddressTitle extends React.Component {
       <div className='address-title'>
         {/* Address field */}
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', position: 'absolute', width: '600px', height: '24px', left: '32px', top: '20px' }}>
-          <div style={{ fontFamily: 'Roboto', fontStyle: 'normal', fontWeight: 'bold', fontSize: '16px', lineHeight: '24px', color: '#333333' }}>Address</div>
+          <div style={{ fontFamily: 'Roboto', fontStyle: 'normal', fontWeight: 'bold', fontSize: '16px', lineHeight: '24px', color: '#333333' }}>Owner ID(address)</div>
           <div style={{ fontFamily: 'Roboto', fontStyle: 'normal', fontWeight: 'normal', fontSize: '16px', lineHeight: '24px', color: '#333333', margin: '0px 8px' }}>{this.props.address}</div>
         </div>
 

@@ -16,8 +16,11 @@ class DockerMain extends React.Component {
       platform: '',
       name: '',
       image: '',
-      port: ''
+      port: '',
+      height: '288px'
     }
+
+    this.heightHandler = this.heightHandler.bind(this)
   }
 
   componentDidMount () {
@@ -32,6 +35,12 @@ class DockerMain extends React.Component {
     }
   }
 
+  heightHandler (height) {
+    this.setState({
+      height: height
+    })
+  }
+
   render () {
     const { address, platform, name } = this.state
 
@@ -42,8 +51,8 @@ class DockerMain extends React.Component {
           <Logo />
           <ImageTable width='260' left='1120px' top='104px' />
           <AddressTitle address={address} platform={platform}/>
-          <DeployTemplate address={address} name={name} platform={platform} cookies={this.props.cookies}/>
-          <Table type='containerList' address={address} name={name} platform={platform} cookies={this.props.cookies} width='1040' left='60px' top='288px'/>
+          <DeployTemplate address={address} name={name} platform={platform} cookies={this.props.cookies} heightHandler={this.heightHandler}/>
+          <Table type='containerList' address={address} name={name} platform={platform} cookies={this.props.cookies} width='1040' left='60px' top={this.state.height}/>
         </div>
       )
     } else {

@@ -12,7 +12,7 @@ class Login extends React.Component {
   login () {
     auth.signInWithPopup(provider)
       .catch(err => {
-        console.error(err)
+        console.log(err)
       })
   }
 

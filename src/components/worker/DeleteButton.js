@@ -24,6 +24,7 @@ class DeleteButton extends React.Component {
           clusterName: this.props.name
         }).then(res => {
           alert(res.data.message)
+          window.location.reload()
         })
       } else if (this.props.platform === 'docker') {
         axios.post('/run/machine/undeploy', {
@@ -33,6 +34,7 @@ class DeleteButton extends React.Component {
           clusterName: this.props.name
         }).then(res => {
           alert(res.data.message)
+          window.location.reload()
         })
       }
     }

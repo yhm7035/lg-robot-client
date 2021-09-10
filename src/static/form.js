@@ -1,6 +1,6 @@
 const workerHeaders = [
   { title: 'Cluster name', width: '330px', type: 'name' },
-  { title: 'Owner ID(Address)', width: '500px', type: 'address' },
+  { title: 'Owner ID(address)', width: '500px', type: 'address' },
   { title: 'Platform', width: '160px', type: 'platform' }
 ]
 

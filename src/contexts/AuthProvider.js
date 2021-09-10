@@ -46,7 +46,7 @@ class AuthProvider extends React.Component {
               }
             })
             .catch(_ => {
-              alert('error: permission required')
+              alert('Error: Permission required.')
             })
         }
       } catch (err) {
