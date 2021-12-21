@@ -43,8 +43,8 @@ a:hover {
 /* Static */
 .main-background {
   position: relative;
-  width: calc(100vw + 1440px);
-  height: calc(100vh + 1024px);
+  /* width: calc(100vw + 1440px); */
+  /* height: calc(100vh + 1024px); */
 
   background-attachment: fixed;
   background: #F4F4F7;
