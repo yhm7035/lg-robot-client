@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import AuthContext from '../contexts/AuthContext'
 import { Route, Redirect } from 'react-router-dom'
+import { signInWithPopup } from 'firebase/auth'
 
 import { auth, provider } from '../firebase'
 
@@ -10,7 +11,7 @@ class Login extends React.Component {
   }
 
   login () {
-    auth.signInWithPopup(provider)
+    signInWithPopup(auth, provider)
       .catch(err => {
         console.log(err)
       })
@@ -23,7 +24,7 @@ class Login extends React.Component {
           if (isSignedIn) {
             return (
               <Route>
-                <Redirect to="/" />
+                <Redirect to={ { pathname: '/', state: { loggedIn: true } } }/>
               </Route>
             )
           } else {

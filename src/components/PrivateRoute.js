@@ -7,7 +7,7 @@ class PrivateRoute extends React.Component {
     super(props)
 
     this.state = {
-      verification: 'waiting'
+      verification: 'null'
     }
   }
 
@@ -16,13 +16,20 @@ class PrivateRoute extends React.Component {
   }
 
   verifyCookie () {
-    const cookies = this.props.cookies
+    const { cookies } = this.props
     const session = cookies.get('session')
+    const loggedIn = this.props.location.state ? this.props.location.state.loggedIn ? this.props.location.state.loggedIn : false : false
 
     if (!session) {
-      this.setState({
-        verification: 'null'
-      })
+      if (loggedIn) {
+        this.setState({
+          verification: 'failed'
+        })
+      } else {
+        this.setState({
+          verification: 'waiting'
+        })
+      }
     } else {
       axios.post('/auth/verifyCookie', {
         session
@@ -32,7 +39,7 @@ class PrivateRoute extends React.Component {
         })
       }).catch(_ => {
         this.setState({
-          verification: 'fail'
+          verification: 'failed'
         })
       })
     }
@@ -46,15 +53,13 @@ class PrivateRoute extends React.Component {
       return (
         <Component {...this.props}/>
       )
-    } else if (verification === 'null') {
+    } else if (verification === 'waiting') {
       return (
         <Route>
           <Redirect to="/login" />
         </Route>
       )
-    } else if (verification === 'fail') {
-      return null
-    } else if (verification === 'waiting') {
+    } else {
       return null
     }
   }
