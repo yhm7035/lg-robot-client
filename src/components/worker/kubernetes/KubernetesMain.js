@@ -43,10 +43,12 @@ class KubernetesMain extends React.Component {
 
   render () {
     const { address, platform, name } = this.state
+    const webWidth = window.innerWidth > 1440 ? window.innerWidth : 1440
+    const webHeight = window.innerHeight > 1024 ? window.innerHeight : 1024
 
     if (!!address && !!platform && !!name) {
       return (
-        <div className='main-background'>
+        <div className='main-background' style={{ width: `${webWidth}px`, height: `${webHeight}px` }}>
           <div className='title'>Container-Native Clusters for Robot Intelligence</div>
           <Logo />
           <ImageTable width='260' left='1120px' top='104px' />
