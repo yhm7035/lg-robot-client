@@ -22,7 +22,7 @@ class Table extends React.Component {
           this.setState({ list: res.data.list })
         })
     } else if (this.props.type === 'containerList' && this.props.platform === 'kubernetes') {
-      axios.get(`/container/cluster/list?address=${this.props.address}&name=${this.props.name}`)
+      axios.get(`/container/cluster/list?address=${this.props.address}&name=${this.props.name}&email=${this.props.cookies.get('email')}`)
         .then(res => {
           this.setState({ list: res.data.list })
         })
