@@ -2,7 +2,7 @@
   "name": "lg-robot-client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://127.0.0.1:5000",
+  "proxy": "http://127.0.0.1:6000",
   "dependencies": {
     "@react-firebase/auth": "^0.2.10",
     "@testing-library/jest-dom": "^5.11.4",
