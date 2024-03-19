@@ -7,7 +7,7 @@ import Logo from './Logo'
 class Main extends React.Component {
   render () {
     const webWidth = window.innerWidth > 1440 ? window.innerWidth : 1440
-    const webHeight = window.innerHeight > 1024 ? window.innerHeight : 1024
+    const webHeight = window.innerHeight * 2 > 1024 ? window.innerHeight * 2 : 1024
 
     return (
       <div className='main-background' style={{ width: `${webWidth}px`, height: `${webHeight}px` }}>
